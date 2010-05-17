@@ -38,7 +38,7 @@ THE SOFTWARE.
 	};
 
 	Timer.prototype.start = function () {
-		this.startTime = (new Date()).getTime();
+		this.startTime = +new Date();
 		this.isActive = true;
 		this.stopTime = null;
 	};
@@ -48,7 +48,7 @@ THE SOFTWARE.
 			this.throwException();
 		}
 
-		return (this.stopTime ? (this.stopTime - this.startTime) : ((new Date()).getTime() - this.startTime)) / 1000;
+		return (this.stopTime ? (this.stopTime - this.startTime) : (+new Date() - this.startTime)) / 1000;
 	};
 
 	Timer.prototype.stop = function () {
@@ -57,7 +57,7 @@ THE SOFTWARE.
 		}
 
 		var elaspedTime = this.elasped();
-		this.stopTime = (new Date()).getTime();
+		this.stopTime = +new Date();
 		this.isActive = false;
 		this.list.push(elaspedTime);
 
