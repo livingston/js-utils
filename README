@@ -1,4 +1,6 @@
 JavaScript Untilities
 
-* timer.js	-	Time logger
+* countDown	-	Countdown timer, used for Ignite
 * jsPerf.js -	JavaScript Codeblock Performance Anlalyzer
+* safeMail	-	Protect Email address from Spam Bots & Crawlers
+* timer.js	-	Time logger
