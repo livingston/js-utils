@@ -1,4 +1,4 @@
-/* Javascript Codeblock Performance Anlalyzer
+/* JavaScript Codeblock Performance Analyzer
  * @author - Livingston Samuel
  */
  
