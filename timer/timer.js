@@ -1,6 +1,5 @@
-/**
- * timer.class.js - Version 1.0.0
- * Last update: 01 Jan 2010
+/*
+ * timer.js - Version 1.2
  *
  * @author Livingston Samuel - http://livingstonsamuel.com/
  *
@@ -26,39 +25,43 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-*/
+ */
 
-var Timer = function () {
-	if( !( this instanceof arguments.callee ) ) {
-		return new Timer();
-	}
+;(function (win, doc, Date) {
+	var Timer = function () {
+		if( !( this instanceof arguments.callee ) ) {
+			return new Timer();
+		}
 
-	var CLASS = arguments.callee, startTime, stopTime, timeList = [],
-	fn = {
-		"start": function () {
-			startTime = (new Date()).getTime();
-			stopTime = null;
-			
-			CLASS.prototype.stop = fn.stop;
-			CLASS.prototype.elasped = fn.elasped;
-			
-			delete CLASS.prototype.start;
-		},
-		"elasped": function () {
-			return (stopTime ? (stopTime - startTime) : ((new Date()).getTime() - startTime)) / 1000;
-		},
-		"stop": function () {
-			stopTime = (new Date()).getTime();
-			
-			delete CLASS.prototype.stop;
-			CLASS.prototype.start = fn.start;
-			CLASS.prototype.list = fn.list;
-			timeList.push(fn.elasped());
-			
-			return fn.elasped();
-		},
-		"list": timeList
+		var CLASS = arguments.callee, startTime, stopTime, timeList = [],
+		fn = {
+			"start": function () {
+				startTime = (new Date()).getTime();
+				stopTime = null;
+
+				CLASS.prototype.stop = fn.stop;
+				CLASS.prototype.elasped = fn.elasped;
+
+				delete CLASS.prototype.start;
+			},
+			"elasped": function () {
+				return (stopTime ? (stopTime - startTime) : ((new Date()).getTime() - startTime)) / 1000;
+			},
+			"stop": function () {
+				stopTime = (new Date()).getTime();
+
+				delete CLASS.prototype.stop;
+				CLASS.prototype.start = fn.start;
+				CLASS.prototype.list = fn.list;
+				timeList.push(fn.elasped());
+
+				return fn.elasped();
+			},
+			"list": timeList
+		};
+
+		CLASS.prototype.start = fn.start;
 	};
 
-	CLASS.prototype.start = fn.start;
-};
+	window.Timer = Timer;
+}(window, document, Date));
