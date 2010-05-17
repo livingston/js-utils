@@ -33,34 +33,25 @@ THE SOFTWARE.
 			return new Timer();
 		}
 
-		var CLASS = arguments.callee, startTime, stopTime, timeList = [],
-		fn = {
-			"start": function () {
-				startTime = (new Date()).getTime();
-				stopTime = null;
+		this.list = [];
+	};
 
-				CLASS.prototype.stop = fn.stop;
-				CLASS.prototype.elasped = fn.elasped;
+	Timer.prototype.start = function () {
+		this.startTime = (new Date()).getTime();
+		this.stopTime = null;
+	};
 
-				delete CLASS.prototype.start;
-			},
-			"elasped": function () {
-				return (stopTime ? (stopTime - startTime) : ((new Date()).getTime() - startTime)) / 1000;
-			},
-			"stop": function () {
-				stopTime = (new Date()).getTime();
+	Timer.prototype.elasped = function () {
+		return (this.stopTime ? (this.stopTime - this.startTime) : ((new Date()).getTime() - this.startTime)) / 1000;
+	};
 
-				delete CLASS.prototype.stop;
-				CLASS.prototype.start = fn.start;
-				CLASS.prototype.list = fn.list;
-				timeList.push(fn.elasped());
+	Timer.prototype.stop = function () {
+		var elaspedTime = this.elasped();
+		this.stopTime = (new Date()).getTime();
 
-				return fn.elasped();
-			},
-			"list": timeList
-		};
+		this.list.push(elaspedTime);
 
-		CLASS.prototype.start = fn.start;
+		return elaspedTime;
 	};
 
 	window.Timer = Timer;
