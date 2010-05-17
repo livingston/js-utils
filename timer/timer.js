@@ -34,10 +34,12 @@ THE SOFTWARE.
 		}
 
 		this.list = [];
+		this.isActive = false;
 	};
 
 	Timer.prototype.start = function () {
 		this.startTime = (new Date()).getTime();
+		this.isActive = true;
 		this.stopTime = null;
 	};
 
@@ -48,7 +50,7 @@ THE SOFTWARE.
 	Timer.prototype.stop = function () {
 		var elaspedTime = this.elasped();
 		this.stopTime = (new Date()).getTime();
-
+		this.isActive = false;
 		this.list.push(elaspedTime);
 
 		return elaspedTime;
