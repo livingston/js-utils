@@ -10,7 +10,7 @@ function safeMail() {
 		rDot = /(( ?)\[dot\]( ?))/i,
 		as = document.getElementsByTagName('span'),
 		i;
-	var replace = function( srting
+
 	for(i in as) {
 		cls = as[i].className;
 		clsnme = cls.toString().indexOf('safemail');
