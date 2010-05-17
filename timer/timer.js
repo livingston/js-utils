@@ -54,5 +54,5 @@ THE SOFTWARE.
 		return elaspedTime;
 	};
 
-	window.Timer = Timer;
+	win.Timer = Timer;
 }(window, document, Date));
