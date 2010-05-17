@@ -44,16 +44,28 @@ THE SOFTWARE.
 	};
 
 	Timer.prototype.elasped = function () {
+		if(!this.startTime) { 
+			this.throwException();
+		}
+
 		return (this.stopTime ? (this.stopTime - this.startTime) : ((new Date()).getTime() - this.startTime)) / 1000;
 	};
 
 	Timer.prototype.stop = function () {
+		if(!this.startTime || !this.isActive) { 
+			this.throwException();
+		}
+
 		var elaspedTime = this.elasped();
 		this.stopTime = (new Date()).getTime();
 		this.isActive = false;
 		this.list.push(elaspedTime);
 
 		return elaspedTime;
+	};
+
+	Timer.prototype.throwException = function () {
+		throw new Error('Timer is not active.');
 	};
 
 	win.Timer = Timer;
