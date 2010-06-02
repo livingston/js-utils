@@ -16,19 +16,19 @@
         formatTime = function (rawTime) {
           if (rawTime < 1000) { return '00 : 00 : 00'; }
           var inSecs = rawTime / 1000,
-              inMins = Math.floor(inSecs / 60),
-              inHrs = Math.floor(inMins / 60);
+              inMins = 0|(inSecs / 60),
+              inHrs = 0|(inMins / 60);
 
           inSecs = inSecs % 60;
           inMins = inMins % 60;
 
-          return pad(inHrs) + " : " + pad(Math.floor(inMins)) + " : " + pad(Math.floor(inSecs));
+          return pad(inHrs) + " : " + pad(0|(inMins)) + " : " + pad(0|(inSecs));
         }, timer,
         time = {},
         processTime = function () {
           time.elasped = (+new Date()) - time.start;
           if (time.elasped < time.limit) {
-            setTimeout(arguments.callee, 500)
+            setTimeout(processTime, 250)
           }
           update(formatTime(time.limit - time.elasped));
         }, update = function (time) {
