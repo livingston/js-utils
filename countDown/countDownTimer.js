@@ -9,8 +9,7 @@
 (function (win, doc, Date) {
   var countDownTimer = function () {
     var displayElem = doc.createElement('div'),
-        pad = function (n) {
-          var l;
+        pad = function (n, l) {
           return (n = '0' + n, l = n.length, n.substr(l-2, l));
         },
         formatTime = function (rawTime) {
