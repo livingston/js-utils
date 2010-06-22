@@ -20,15 +20,17 @@ var jsPerf = {
 		return (options && options.raw) ? (jsPerf.getTime() - startTime) : (name + ' - for ' + iterations + ' iterations took ' + (jsPerf.getTime() - startTime) + ' ms to execute.');	
 	},
 	compare: function (scenarios) {
-		var scenario, func, options = scenarios.options || {};
+		var scenario, scenarioFuncs, func, options;
 
 		for ( scenario in scenarios ) {
 			if(scenarios.hasOwnProperty(scenario)) {
-				scenario = scenarios[scenario].fn;
+				scenario = scenarios[scenario];
+				scenarioFuncs = scenario.fn;
+        options = scenario.options || {};
 
-				for(func in scenario) {
-					if(scenario.hasOwnProperty(func)) {
-						console.log(jsPerf.measure(func, scenario[func], options));
+				for(func in scenarioFuncs) {
+					if(scenarioFuncs.hasOwnProperty(func)) {
+						console.log(jsPerf.measure(func, scenarioFuncs[func], options));
 					}
 				}
 			}
