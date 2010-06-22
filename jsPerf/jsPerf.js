@@ -3,12 +3,12 @@
  */
  
 var jsPerf = {
-	getTime: function () { return (new Date()).getTime(); },
 	measure: function (name, codeBlock, options) {
 		var count = (options && options.iterations) ? parseInt(options.iterations, 10) : 0,
+			now = function () { return (new Date()).getTime(); },
 			fn = codeBlock,
 			iterations,
-			startTime = jsPerf.getTime();
+			startTime = now();
 		
 		if((!options || !options.crossLimit) && (count > 1000000 || count < 1)) count = 10;
 		iterations = count;
@@ -17,7 +17,7 @@ var jsPerf = {
 			fn();
 		}
 		
-		return (options && options.raw) ? (jsPerf.getTime() - startTime) : (name + ' - for ' + iterations + ' iterations took ' + (jsPerf.getTime() - startTime) + ' ms to execute.');	
+		return (options && options.raw) ? (now() - startTime) : (name + ' - for ' + iterations + ' iterations took ' + (now() - startTime) + ' ms to execute.');
 	},
 	compare: function (scenarios) {
 		var scenario, scenarioFuncs, func, options;
@@ -38,6 +38,7 @@ var jsPerf = {
 	}
 };
 
+/* Example Scenario */
 var scenarios = {
 	"select all elements": {
 		fn: {
