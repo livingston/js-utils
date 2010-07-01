@@ -22,12 +22,14 @@
           inMins = inMins % 60;
 
           return pad(inHrs) + " : " + pad(0|(inMins)) + " : " + pad(0|(inSecs));
-        }, timer,
-        time = {},
+        }, timer, isPaused = 0, isActive = 0,
+        time = { paused: 0, pause: 0 },
         processTime = function () {
-          time.elasped = (+new Date()) - time.start;
-          if (time.elasped < time.limit) {
-            setTimeout(processTime, 250)
+          if (!isActive) { return }
+
+          time.elasped = (+new Date()) - time.start - time.paused;
+          if (time.elasped < time.limit && !isPaused) {
+            timer = setTimeout(processTime, 250)
           }
           update(formatTime(time.limit - time.elasped));
         }, update = function (time) {
@@ -37,19 +39,42 @@
     doc.getElementsByTagName('body')[0].appendChild(displayElem);
     
     return {
-      time: function () {},
+      time: time,
       start: function (limit) {
+        if (isActive) { return; }
+
+        this.reset();
+
         time.start = +new Date();
         time.limit = limit;
-        
+
+        isActive = 1;
         processTime();
       },
-      pause: function () {},
-      stop: function () {},
-      reset: function () {}
+      pause: function () {
+        isPaused = !isPaused;
+
+        if (!isPaused) {
+          time.paused += +new Date() - time.pause;
+
+          processTime();
+        } else {
+          time.pause = +new Date()
+        }
+      },
+      stop: function () {
+        isActive = 0;
+        clearTimeout(timer);
+
+        time = { paused: 0, pause: 0 }
+      },
+      reset: function () {
+        this.stop();
+
+        update(formatTime(0))
+      }
     }
   }();
   
   countDownTimer.start(1*60*1000);
-  
 }(window, document, Date));
