@@ -1,6 +1,6 @@
 JavaScript Utilities
 
-* countDown	-	Countdown timer, used for Ignite
-* jsPerf.js -	JavaScript Codeblock Performance Analyzer
-* safeMail	-	Protect Email address from Spam Bots & Crawlers
-* timer.js	-	Time logger
+* countDown — Countdown timer, used for Ignite
+* jsPerf.js — JavaScript Codeblock Performance Analyzer
+* safeMail — Protect Email address from Spam Bots & Crawlers
+* timer.js — Time logger
